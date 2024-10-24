@@ -169,3 +169,6 @@ best_checkpoint
 
 sum_ckpt*
 __MACOSX
+.DS_Store
+
+report.*
