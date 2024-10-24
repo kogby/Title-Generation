@@ -3,7 +3,7 @@
 
 python preprocess.py --data_path ./data/train.json 
 
-python train_with_trainer.py --train_file ./data/training.json \
+python train.py --train_file ./data/training.json \
 				--validation_file ./data/validation.json \
                 --num_beams 5 \
                 --model_name_or_path best_checkpoint \
