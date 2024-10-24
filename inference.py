@@ -1,5 +1,6 @@
 import torch
 
+import nltk
 from tqdm import tqdm
 from argparse import Namespace, ArgumentParser
 from functools import partial
@@ -43,7 +44,7 @@ def collate_func(data: list) -> dict:
     return data_tensor_dict
 
 
-def preprocess_func(data, tokenizer, train: bool = True):
+def preprocess_tokenize(data, tokenizer, train: bool = True):
     tokenized_data = tokenizer(
         data["maintext"],
         max_length=MAX_SOURCE_LEN,
@@ -64,10 +65,6 @@ def preprocess_func(data, tokenizer, train: bool = True):
         tokenized_data["labels"] = label
 
     return tokenized_data
-
-
-def postprocess_func(batch_data):
-    return ["\n".join(nltk.sent_tokenize(data.strip())) for data in batch_data]
 
 
 def parse_arguments() -> Namespace:
@@ -103,8 +100,8 @@ if __name__ == "__main__":
         args.tokenizer_name, use_fast=True, trust_remote_code=False
     )
     test_data_list = read_jsonl(args.data_path)
-    preprocess_func = partial(preprocess_func, tokenizer=tokenizer, train=False)
-    test_dataset = NewsDataset(test_data_list, preprocess_func)
+    preprocess_tokenize = partial(preprocess_tokenize, tokenizer=tokenizer, train=False)
+    test_dataset = NewsDataset(test_data_list, preprocess_tokenize)
     test_loader = DataLoader(
         test_dataset, batch_size=args.batch_size, collate_fn=collate_func, shuffle=False
     )
@@ -152,9 +149,12 @@ if __name__ == "__main__":
                 num_beams=args.num_beams,
                 **sampling_params,
             )
-            generations = postprocess_func(
-                tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)
-            )
+            generations = [
+                "\n".join(nltk.sent_tokenize(data.strip()))
+                for data in tokenizer.batch_decode(
+                    generated_tokens, skip_special_tokens=True
+                )
+            ]
             prediction_list.extend(
                 [
                     {"title": pred, "id": ID}
