@@ -1,5 +1,5 @@
 #!/bin/bash
-FILE_ID_CHECKPOINTS="1SrOKrv3E28pNP4TbJ9tTd9bfhhau5iUK"
+FILE_ID_CHECKPOINTS="1-eib9HECaZYkb_osZdZoltIYH5-SCgix"
 
 # 定義下載檔案的輸出路徑
 OUTPUT_CHECKPOINTS="best_checkpoint.zip"
