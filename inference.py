@@ -76,12 +76,12 @@ def parse_arguments() -> Namespace:
     parser.add_argument(
         "--tokenizer_name",
         type=str,
-        default="checkpoint",
+        default="best_checkpoint",
     )
     parser.add_argument(
         "--model_name_or_path",
         type=str,
-        default="checkpoint",
+        default="best_checkpoint",
     )
     parser.add_argument("--batch_size", type=int, default=100)
     parser.add_argument("--num_beams", type=int, default=5)

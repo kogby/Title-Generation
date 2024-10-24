@@ -20,6 +20,3 @@ python train.py --train_file ./data/training.json \
 				--ignore_pad_token_for_loss True \
 				--max_source_length 256 \
 				--max_target_length 64
-
-# --model_name_or_path google/mt5-small \
-# --tokenizer_name google/mt5-small \
