@@ -9,7 +9,6 @@ from transformers import AutoTokenizer, AutoConfig, AutoModelForSeq2SeqLM
 from utils import (
     init_random_seeds,
     read_jsonl,
-    dict_to_device,
     write_jsonl,
 )
 
@@ -142,7 +141,10 @@ if __name__ == "__main__":
     test_bar = tqdm(test_loader, desc=f"Testing")
     for _, batch_data in enumerate(test_bar, start=1):
         with torch.no_grad():
-            batch_data = dict_to_device(batch_data, device)
+            batch_data = {
+                k: v.to(device) if not isinstance(v, list) else v
+                for k, v in batch_data.items()
+            }
             generated_tokens = model.generate(
                 input_ids=batch_data["input_ids"],
                 attention_mask=batch_data["attention_mask"],

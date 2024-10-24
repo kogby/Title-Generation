@@ -18,7 +18,7 @@ def write_jsonl(data_list: list, path: str) -> None:
     return
 
 
-def set_random_seeds(seed: int = 0) -> None:
+def init_random_seeds(seed: int = 0) -> None:
     np.random.seed(seed)
     random.seed(seed)
     torch.manual_seed(seed)
@@ -28,7 +28,3 @@ def set_random_seeds(seed: int = 0) -> None:
     torch.backends.cudnn.benchmark = False
     torch.backends.cudnn.deterministic = True
     return
-
-
-def dict_to_device(data: dict, device: torch.device) -> dict:
-    return {k: v.to(device) if not isinstance(v, list) else v for k, v in data.items()}
