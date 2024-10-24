@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 # 模擬數據
 steps = list(range(0, 20000, 2000))  # 10 steps
 
-# 生成更加逼真的損失數據，有漸進的下降並加入一些隨機噪音
+# 生成更加逼真的訓練損失數據，加入隨機噪音
 np.random.seed(42)  # 固定隨機種子以保證可重現
 training_loss = (
     0.25
@@ -12,9 +12,15 @@ training_loss = (
     + np.random.normal(0, 0.02, len(steps))
 )
 
-rouge_1 = [24.5, 25.0, 25.5, 26.0, 26.5, 26.3, 26.7, 26.6, 26.4, 26.8]  # 10 points
-rouge_2 = [9.8, 10.0, 10.2, 10.4, 10.6, 10.7, 10.8, 10.9, 10.7, 10.9]  # 10 points
-rouge_l = [22.5, 23.0, 23.5, 23.8, 24.0, 24.1, 23.9, 23.8, 23.6, 24.0]  # 10 points
+# 模擬ROUGE指標，逐步上升並加入隨機波動，幅度較小
+rouge_1 = np.array([24.5, 25.0, 25.5, 26.0, 26.5, 26.3, 26.7, 26.6, 26.4, 26.8])
+rouge_1 = rouge_1 + np.random.normal(0, 0.1, len(steps))  # 小波動
+
+rouge_2 = np.array([9.8, 10.0, 10.2, 10.4, 10.6, 10.7, 10.8, 10.9, 10.7, 10.9])
+rouge_2 = rouge_2 + np.random.normal(0, 0.05, len(steps))  # 小波動
+
+rouge_l = np.array([22.5, 23.0, 23.5, 23.8, 24.0, 24.1, 23.9, 23.8, 23.6, 24.0])
+rouge_l = rouge_l + np.random.normal(0, 0.08, len(steps))  # 小波動
 
 # 創建 2x2 圖表佈局
 fig, axs = plt.subplots(2, 2, figsize=(12, 8))
