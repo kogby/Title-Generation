@@ -1,10 +1,10 @@
 #!/bin/bash
 # Reference https://github.com/huggingface/transformers/tree/main/examples/pytorch/summarization
 
-python preprocess.py --data_path ./data/train.json 
+python preprocess.py --data_path ./data/train.jsonl 
 
-python train.py --train_file ./data/training.json \
-				--validation_file ./data/validation.json \
+python train.py --train_file ./data/training.jsonl \
+				--validation_file ./data/validation.jsonl \
                 --num_beams 5 \
                 --model_name_or_path best_checkpoint \
 				--tokenizer_name best_checkpoint \
