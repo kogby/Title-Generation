@@ -1,16 +1,16 @@
 #!/bin/bash
 # Reference https://github.com/huggingface/transformers/tree/main/examples/pytorch/summarization
 
-python preprocess.py --data_path ./data/train.jsonl 
+python preprocess.py --data_path ./data/train.json 
 
 python train.py --train_file ./data/training.json \
 				--validation_file ./data/validation.json \
                 --num_beams 5 \
-                --model_name_or_path best_checkpoint \
-				--tokenizer_name best_checkpoint \
+                --model_name_or_path google/mt5-small \
+				--tokenizer_name google/mt5-small \
                 --per_device_train_batch_size 8 \
-                --learning_rate 1e-6 \
-				--num_train_epochs 1 \
+                --learning_rate 1e-3 \
+				--num_train_epochs 15 \
 				--gradient_accumulation_steps 4 \
                 --text_column 'maintext' \
 				--summary_column 'title' \
