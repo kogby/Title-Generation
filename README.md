@@ -2,11 +2,12 @@
 
 2024 Applied Deep Learning Homework 2
 
-**Step 1: Install the evaluation metric**  
+## Install the evaluation metric
+
 To install the evaluation metric, you can refer this repo:
 https://github.com/deankuo/ADL24-HW2
 
-## Download dataset and model checkpoint
+## Download model checkpoint
 
 To download the model checkpoint, you can run the commad:
 
