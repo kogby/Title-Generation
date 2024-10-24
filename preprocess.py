@@ -12,7 +12,7 @@ parser.add_argument(
     "--split_ratio",
     type=float,
     default=0.85,
-    help="Split ratio for training and validation (default is 0.8)",
+    help="Split ratio for training and validation (default is 0.85)",
 )
 args = parser.parse_args()
 
@@ -23,21 +23,23 @@ split_ratio = args.split_ratio
 with open(input_file, "r", encoding="utf-8") as f:
     lines = f.readlines()
 
+# 解析每一行為 JSON 物件
+json_data = [json.loads(line) for line in lines]
+
 # 隨機打亂資料順序
-random.shuffle(lines)
+random.seed(0)
+random.shuffle(json_data)
 
 # 切分資料
-split_point = int(len(lines) * split_ratio)
-training_data = lines[:split_point]
-validation_data = lines[split_point:]
+split_point = int(len(json_data) * split_ratio)
+training_data = json_data[:split_point]
+validation_data = json_data[split_point:]
 
-# 將資料寫入 training.jsonl 和 validation.jsonl
-with open("./data/training.jsonl", "w", encoding="utf-8") as f_train:
-    for line in training_data:
-        f_train.write(line)
+# 將資料寫入 training.json 和 validation.json
+with open("./data/training.json", "w", encoding="utf-8") as f_train:
+    json.dump(training_data, f_train, ensure_ascii=False, indent=4)
 
-with open("./data/validation.jsonl", "w", encoding="utf-8") as f_val:
-    for line in validation_data:
-        f_val.write(line)
+with open("./data/validation.json", "w", encoding="utf-8") as f_val:
+    json.dump(validation_data, f_val, ensure_ascii=False, indent=4)
 
 print(f"完成切分，訓練資料 {len(training_data)} 條，驗證資料 {len(validation_data)} 條")
