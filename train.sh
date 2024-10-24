@@ -3,14 +3,14 @@
 
 python preprocess.py --data_path ./data/train.jsonl 
 
-python train.py --train_file ./data/training.jsonl \
-				--validation_file ./data/validation.jsonl \
+python train.py --train_file ./data/training.json \
+				--validation_file ./data/validation.json \
                 --num_beams 5 \
                 --model_name_or_path best_checkpoint \
 				--tokenizer_name best_checkpoint \
                 --per_device_train_batch_size 8 \
                 --learning_rate 1e-3 \
-				--num_train_epochs 15 \
+				--num_train_epochs 1 \
 				--gradient_accumulation_steps 4 \
                 --text_column 'maintext' \
 				--summary_column 'title' \
