@@ -168,3 +168,4 @@ checkpoints.*
 best_checkpoint
 
 sum_ckpt*
+__MACOSX

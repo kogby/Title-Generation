@@ -6,7 +6,7 @@ OUTPUT_CHECKPOINTS="best_checkpoint.zip"
 
 # Download ntlk (punkt)
 echo "正在下載 punkt..."
-python -c "import nltk; nltk.download('punkt', quiet=True)"
+python -c "import nltk; nltk.download('punkt')"
 echo "下載完成！"
 
 if [ ! -d data ]; then
