@@ -162,6 +162,9 @@ cython_debug/
 #.idea/
 
 data
-data.*
+# data.*
 checkpoints
 checkpoints.*
+best_checkpoint
+
+sum_ckpt*
